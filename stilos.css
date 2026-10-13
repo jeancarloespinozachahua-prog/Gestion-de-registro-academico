@@ -6,13 +6,13 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #1e293b;
+    background: #1679dd;
+    color: #37c937;
 }
 
 header {
     background: #173b65;
-    color: white;
+    color: rgb(202, 38, 38);
     padding: 25px;
     text-align: center;
 }
@@ -37,7 +37,7 @@ main {
 
 .formulario,
 .listado {
-    background: white;
+    background: rgb(255, 255, 255);
     padding: 22px;
     border-radius: 12px;
     box-shadow: 0 3px 12px #0000000d;
