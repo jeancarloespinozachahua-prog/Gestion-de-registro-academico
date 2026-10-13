@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Académica</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <header>
+        <h1>Gestión Académica</h1>
+        <p>Registro y listado de estudiantes</p>
+    </header>
+
+    <main>
+        <section class="formulario">
+            <h2>Registrar estudiante</h2>
+
+            <form id="formularioEstudiante">
+                <label for="nombres">Nombres</label>
+                <input type="text" id="nombres" required>
+
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" required>
+
+                <label for="dni">DNI</label>
+                <input type="text" id="dni" maxlength="8"
+                       inputmode="numeric" pattern="[0-9]{8}" required>
+
+                <label for="edad">Edad</label>
+                <input type="number" id="edad" min="1" max="120" required>
+
+                <label for="carrera">Carrera profesional</label>
+                <select id="carrera" required>
+                    <option value="">Seleccionar carrera</option>
+                    <option>Ingeniería de Sistemas</option>
+                    <option>Administración</option>
+                    <option>Contabilidad</option>
+                    <option>Enfermería</option>
+                    <option>Educación</option>
+                </select>
+
+                <button type="submit">Registrar estudiante</button>
+            </form>
+            <p id="mensaje" role="status"></p>
+        </section>
+
+        <section class="listado">
+            <h2>Listado de estudiantes</h2>
+            <p>Total registrados: <strong id="total">0</strong></p>
+
+            <div class="tabla">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>DNI</th>
+                            <th>Edad</th>
+                            <th>Carrera</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaEstudiantes"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
