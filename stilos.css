@@ -82,6 +82,10 @@ button:hover {
     background: #124d80;
 }
 
+.titulo{
+    color: #f2f4f7;
+    
+}
 .eliminar {
     background: #dc3545;
     margin: 0;
