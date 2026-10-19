@@ -82,3 +82,37 @@ formulario.addEventListener("submit", function(evento) {
 });
 
 mostrarEstudiantes();
+
+const enlacesMenu = document.querySelectorAll(".enlace-menu");
+const vistas = document.querySelectorAll(".vista");
+const nombreVista = document.getElementById("nombreVista");
+const barraLateral = document.getElementById("barraLateral");
+const botonMenu = document.getElementById("botonMenu");
+
+enlacesMenu.forEach(enlace => {
+    enlace.addEventListener("click", () => {
+        const destino = enlace.dataset.vista;
+
+        enlacesMenu.forEach(item => {
+            item.classList.toggle("activo", item === enlace);
+            if (item === enlace) {
+                item.setAttribute("aria-current", "page");
+            } else {
+                item.removeAttribute("aria-current");
+            }
+        });
+
+        vistas.forEach(vista => {
+            vista.classList.toggle("activa", vista.id === `vista-${destino}`);
+        });
+
+        nombreVista.textContent = enlace.textContent.trim();
+        barraLateral.classList.remove("abierta");
+        botonMenu.setAttribute("aria-expanded", "false");
+    });
+});
+
+botonMenu.addEventListener("click", () => {
+    const abierta = barraLateral.classList.toggle("abierta");
+    botonMenu.setAttribute("aria-expanded", String(abierta));
+});
