@@ -21,12 +21,13 @@ function mostrarEstudiantes() {
         [
             estudiante.nombres,
             estudiante.apellidos,
+            estudiante.correo,
             estudiante.dni,
             estudiante.edad,
             estudiante.carrera
         ].forEach(dato => {
             const celda = document.createElement("td");
-            celda.textContent = dato;
+            celda.textContent = dato ?? "";
             fila.appendChild(celda);
         });
 
@@ -58,6 +59,7 @@ formulario.addEventListener("submit", function(evento) {
     const estudiante = {
         nombres: document.getElementById("nombres").value.trim(),
         apellidos: document.getElementById("apellidos").value.trim(),
+        correo: document.getElementById("correo").value.trim(),
         dni: document.getElementById("dni").value.trim(),
         edad: Number(document.getElementById("edad").value),
         carrera: document.getElementById("carrera").value
