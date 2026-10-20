@@ -40,102 +40,50 @@
             </header>
 
     <main>
-        <section class="formulario">
-            <h2>Registrar estudiante</h2>
-
-            <form id="formularioEstudiante">
-                <label for="nombres">Nombres</label>
-                <input type="text" id="nombres" required>
-
-                <label for="apellidos">Apellidos</label>
-                <input type="text" id="apellidos" required>
-
-                <label for="dni">DNI</label>
-                <input type="text" id="dni" maxlength="8"
-                       inputmode="numeric" pattern="[0-9]{8}" required>
-
-                <label for="edad">Edad</label>
-                <input type="number" id="edad" min="1" max="120" required>
-
-                <label for="carrera">Carrera profesional</label>
-                <select id="carrera" required>
-                    <option value="">Seleccionar carrera</option>
-                    <option>Ingeniería de Sistemas</option>
-                    <option>Administración</option>
-                    <option>Contabilidad</option>
-                    <option>Enfermería</option>
-                    <option>Educación</option>
-                </select>
-
-                <button type="submit">Registrar estudiante</button>
-            </form>
-            <p id="mensaje" role="status"></p>
+        <section class="vista activa" id="vista-estudiantes">
+            <div class="encabezado-vista"><div><p class="sobre-titulo">GESTIÓN ACADÉMICA</p><h1>Estudiantes</h1><p>Registra alumnos y consulta los datos guardados.</p></div></div>
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><div><h2>Registrar estudiante</h2><p>Completa los datos del alumno.</p></div></div>
+                <form id="formularioEstudiante" class="form-grid">
+                    <div class="campo"><label for="nombres">Nombres</label><input type="text" id="nombres" required></div>
+                    <div class="campo"><label for="apellidos">Apellidos</label><input type="text" id="apellidos" required></div>
+                    <div class="campo"><label for="dni">DNI</label><input type="text" id="dni" maxlength="8" inputmode="numeric" pattern="[0-9]{8}" required></div>
+                    <div class="campo"><label for="edad">Edad</label><input type="number" id="edad" min="1" max="120" required></div>
+                    <div class="campo campo-completo"><label for="carrera">Carrera profesional</label><select id="carrera" required><option value="">Seleccionar carrera</option><option>Ingeniería de Sistemas</option><option>Administración</option><option>Contabilidad</option><option>Enfermería</option><option>Educación</option></select></div>
+                    <div class="acciones-form"><p id="mensaje" role="status"></p><button type="submit">Registrar estudiante</button></div>
+                </form>
+            </section>
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><div><h2>Listado de estudiantes</h2><p>Alumnos registrados en este navegador.</p></div><span class="contador">Total: <strong id="total">0</strong></span></div>
+                <div class="tabla"><table><thead><tr><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Edad</th><th>Carrera</th><th>Acción</th></tr></thead><tbody id="listaEstudiantes"></tbody></table></div>
+            </section>
         </section>
 
-        <section class="listado">
-            <h2>Listado de estudiantes</h2>
-            <p>Total registrados: <strong id="total">0</strong></p>
-
-            <div class="tabla">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>DNI</th>
-                            <th>Edad</th>
-                            <th>Carrera</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaEstudiantes"></tbody>
-                </table>
-            </div>
+        <section class="vista" id="vista-cursos">
+            <div class="encabezado-vista"><div><p class="sobre-titulo">GESTIÓN ACADÉMICA</p><h1>Cursos</h1><p>Registra cursos y consulta los datos guardados.</p></div></div>
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><div><h2>Registrar curso</h2><p>Completa la información del curso.</p></div></div>
+                <form id="formularioCurso" class="form-grid">
+                    <div class="campo"><label for="codigoCurso">Código del curso</label><input type="text" id="codigoCurso" maxlength="12" placeholder="Ej. SIS101" required></div>
+                    <div class="campo"><label for="nombreCurso">Nombre del curso</label><input type="text" id="nombreCurso" required></div>
+                    <div class="campo"><label for="creditosCurso">Créditos</label><input type="number" id="creditosCurso" min="1" max="20" required></div>
+                    <div class="campo"><label for="docenteCurso">Docente</label><input type="text" id="docenteCurso" required></div>
+                    <div class="acciones-form"><p id="mensajeCurso" role="status"></p><button type="submit">Registrar curso</button></div>
+                </form>
+            </section>
+            <section class="tarjeta">
+                <div class="titulo-tarjeta"><div><h2>Listado de cursos</h2><p>Cursos registrados en este navegador.</p></div><span class="contador">Total: <strong id="totalCursos">0</strong></span></div>
+                <div class="tabla"><table><thead><tr><th>Código</th><th>Curso</th><th>Créditos</th><th>Docente</th><th>Acción</th></tr></thead><tbody id="listaCursos"></tbody></table></div>
+            </section>
         </section>
 
-        <section class="formulario">
-            <h2>Registrar curso</h2>
-
-            <form id="formularioCurso">
-                <label for="codigoCurso">Código del curso</label>
-                <input type="text" id="codigoCurso" maxlength="12"
-                       placeholder="Ej. SIS101" required>
-
-                <label for="nombreCurso">Nombre del curso</label>
-                <input type="text" id="nombreCurso" required>
-
-                <label for="creditosCurso">Créditos</label>
-                <input type="number" id="creditosCurso" min="1" max="20" required>
-
-                <label for="docenteCurso">Docente</label>
-                <input type="text" id="docenteCurso" required>
-
-                <button type="submit">Registrar curso</button>
-            </form>
-            <p id="mensajeCurso" role="status"></p>
-        </section>
-
-        <section class="listado">
-            <h2>Listado de cursos</h2>
-            <p>Total registrados: <strong id="totalCursos">0</strong></p>
-
-            <div class="tabla">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Curso</th>
-                            <th>Créditos</th>
-                            <th>Docente</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaCursos"></tbody>
-                </table>
-            </div>
+        <section class="vista" id="vista-consultas">
+            <div class="encabezado-vista"><div><p class="sobre-titulo">CONSULTAS</p><h1>Información registrada</h1><p>Consulta la información ingresada desde las pestañas Estudiantes y Cursos.</p></div></div>
+            <section class="tarjeta"><h2>Resumen</h2><p>Estudiantes registrados: <strong id="resumenEstudiantes">0</strong></p><p>Cursos registrados: <strong id="resumenCursos">0</strong></p></section>
         </section>
     </main>
 
+    <script src="validar%20formulario.js"></script>
     <script src="script.js"></script>
     <script src="cursos.js"></script>
 </body>

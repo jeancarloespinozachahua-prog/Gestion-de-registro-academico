@@ -2,8 +2,26 @@ const formularioCurso = document.getElementById("formularioCurso");
 const listaCursos = document.getElementById("listaCursos");
 const totalCursos = document.getElementById("totalCursos");
 const mensajeCurso = document.getElementById("mensajeCurso");
+const resumenCursos = document.getElementById("resumenCursos");
 
-let cursos = JSON.parse(localStorage.getItem("cursos") || "[]");
+function cargarCursos() {
+    try {
+        const guardados = JSON.parse(localStorage.getItem("cursos") || "[]");
+        if (!Array.isArray(guardados)) return [];
+
+        return guardados.filter(curso =>
+            curso && typeof curso === "object" &&
+            typeof curso.codigo === "string" && /^[A-Z0-9-]{2,12}$/.test(curso.codigo) &&
+            typeof curso.nombre === "string" &&
+            Number.isInteger(curso.creditos) && curso.creditos >= 1 && curso.creditos <= 20 &&
+            typeof curso.docente === "string"
+        );
+    } catch {
+        return [];
+    }
+}
+
+let cursos = cargarCursos();
 
 function guardarCursos() {
     localStorage.setItem("cursos", JSON.stringify(cursos));
@@ -41,6 +59,7 @@ function mostrarCursos() {
     });
 
     totalCursos.textContent = cursos.length;
+    if (resumenCursos) resumenCursos.textContent = cursos.length;
 }
 
 formularioCurso.addEventListener("submit", evento => {

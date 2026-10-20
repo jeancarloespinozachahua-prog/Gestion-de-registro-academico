@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demostración aislada: carga vulnerable</title>
+</head>
+<body>
+    <h1>Demostración vulnerable (aislada)</h1>
+    <p>Este ejemplo reproduce el fallo de analizar directamente datos corruptos de localStorage.</p>
+    <button id="corromper" type="button">Corromper el almacenamiento y recargar</button>
+    <p id="estado" role="status"></p>
+
+    <script>
+        // Ejemplo deliberadamente vulnerable: JSON inválido causa una excepción
+        // no controlada y detiene este script.
+        const estudiantes = JSON.parse(localStorage.getItem("estudiantes") || "[]");
+        document.getElementById("estado").textContent = `Registros cargados: ${estudiantes.length}`;
+
+        document.getElementById("corromper").addEventListener("click", () => {
+            localStorage.setItem("estudiantes", "{datos dañados");
+            location.reload();
+        });
+    </script>
+</body>
+</html>
