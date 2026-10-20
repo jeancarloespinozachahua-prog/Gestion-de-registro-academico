@@ -14,9 +14,8 @@ Prototipo web para registrar estudiantes, organizar cursos y consultar informaci
 
 | Integrante | Rol | Rama / evidencia |
 |---|---|---|
-| Crisber J. A. R. | Líder técnico | repositorio, estructura, README |
+| Tania Ascanoa Lucas | Líder técnico | repositorio, estructura, README |
 | Jean Carlo Espinoza | Desarrollador 1 | `feature/registro-estudiantes` |
-| Yhonatan Q. U. | Desarrollador 2 | `feature/gestion-cursos` |
 | Yuliana Esther | Integrador/revisor | Pull Requests, revisión, conflicto |
 | Kevin Minaya | Calidad y seguridad | `.gitignore`, Actions, tablero, pruebas |
 
