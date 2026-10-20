@@ -3,23 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demostración aislada: carga vulnerable</title>
+    <meta name="description" content="Demostración aislada sobre manejo de datos corruptos en localStorage.">
+    <title>Demo de seguridad | Datos locales</title>
+    <style>
+        :root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; color: #1d2a3b; background: #f2f5fa; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 36px 18px; }
+        main { width: min(100%, 900px); margin: auto; }
+        .encabezado { margin-bottom: 24px; }
+        .etiqueta { color: #315bc2; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+        h1 { margin: 8px 0; font-size: clamp(26px, 5vw, 36px); }
+        .intro { max-width: 680px; color: #637188; line-height: 1.6; }
+        .aviso { margin: 20px 0; padding: 13px 16px; border: 1px solid #f0d59b; border-radius: 9px; background: #fff8e8; color: #745517; font-size: 14px; line-height: 1.5; }
+        .rejilla { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+        article { padding: 20px; border: 1px solid #e4e9f0; border-radius: 12px; background: white; box-shadow: 0 5px 20px #263b5a0a; }
+        h2 { margin: 0 0 8px; font-size: 18px; }
+        article p { min-height: 44px; margin: 0 0 16px; color: #68768b; font-size: 14px; line-height: 1.5; }
+        button { min-height: 40px; padding: 0 13px; border: 0; border-radius: 7px; background: #315bc2; color: white; font: inherit; font-size: 13px; font-weight: 650; cursor: pointer; }
+        button:hover { background: #23499f; }
+        button.secundario { margin-left: 7px; background: #e9eef7; color: #32435c; }
+        button.secundario:hover { background: #dce5f2; }
+        .resultado { min-height: 44px; margin-top: 16px; padding: 11px; border-radius: 7px; background: #f4f6fa; color: #506078; font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+        .resultado.error { background: #fff0ef; color: #a4332e; }
+        .resultado.ok { background: #ebf8f1; color: #24724d; }
+        .nota { margin-top: 18px; color: #778398; font-size: 12px; }
+        code { padding: 2px 5px; border-radius: 4px; background: #eef1f6; }
+        @media (max-width: 650px) { body { padding: 24px 14px; } .rejilla { grid-template-columns: 1fr; } article p { min-height: 0; } }
+    </style>
 </head>
 <body>
-    <h1>Demostración vulnerable (aislada)</h1>
-    <p>Este ejemplo reproduce el fallo de analizar directamente datos corruptos de localStorage.</p>
-    <button id="corromper" type="button">Corromper el almacenamiento y recargar</button>
-    <p id="estado" role="status"></p>
+    <main>
+        <header class="encabezado">
+            <span class="etiqueta">LABORATORIO LOCAL</span>
+            <h1>Datos dañados en el navegador</h1>
+            <p class="intro">Esta demo muestra qué ocurre cuando una aplicación analiza datos guardados sin manejar errores. Compara el ejemplo vulnerable con una carga que tolera datos corruptos.</p>
+        </header>
+
+        <aside class="aviso"><strong>Demo aislada:</strong> los botones usan la clave <code>demo_estudiantes_vulnerable</code>. No alteran los estudiantes ni cursos del sistema académico.</aside>
+
+        <section class="rejilla" aria-label="Comparación de carga vulnerable y corregida">
+            <article>
+                <h2>1. Código vulnerable</h2>
+                <p>La carga no tiene manejo de errores. El control de la demo captura la excepción solo para mostrarla aquí y dejarte probar el otro ejemplo.</p>
+                <button id="probarVulnerable" type="button">Probar con datos dañados</button>
+                <button id="prepararVulnerable" class="secundario" type="button">Preparar datos dañados</button>
+                <div id="resultadoVulnerable" class="resultado" role="status" aria-live="polite">Aún no se ejecutó la prueba.</div>
+            </article>
+
+            <article>
+                <h2>2. Código corregido</h2>
+                <p>La carga captura el JSON inválido, informa el problema y devuelve una lista vacía para que la interfaz pueda continuar.</p>
+                <button id="probarSeguro" type="button">Probar recuperación</button>
+                <button id="guardarEjemplo" class="secundario" type="button">Guardar dato válido</button>
+                <div id="resultadoSeguro" class="resultado" role="status" aria-live="polite">Aún no se ejecutó la prueba.</div>
+            </article>
+        </section>
+
+        <p class="nota">La aplicación principal realiza una carga protegida en <code>script.js</code>. Esta página es solo una demostración independiente.</p>
+    </main>
 
     <script>
-        // Ejemplo deliberadamente vulnerable: JSON inválido causa una excepción
-        // no controlada y detiene este script.
-        const estudiantes = JSON.parse(localStorage.getItem("estudiantes") || "[]");
-        document.getElementById("estado").textContent = `Registros cargados: ${estudiantes.length}`;
+        const claveDemo = "demo_estudiantes_vulnerable";
+        const resultadoVulnerable = document.getElementById("resultadoVulnerable");
+        const resultadoSeguro = document.getElementById("resultadoSeguro");
 
-        document.getElementById("corromper").addEventListener("click", () => {
-            localStorage.setItem("estudiantes", "{datos dañados");
-            location.reload();
+        function mostrar(elemento, texto, tipo) {
+            elemento.textContent = texto;
+            elemento.className = `resultado ${tipo}`;
+        }
+
+        function prepararDatosDañados() {
+            localStorage.setItem(claveDemo, "{datos dañados");
+            mostrar(resultadoVulnerable, "Datos dañados preparados en el almacenamiento exclusivo de esta demo.", "");
+            mostrar(resultadoSeguro, "Listo para probar la recuperación con los mismos datos.", "");
+        }
+
+        document.getElementById("prepararVulnerable").addEventListener("click", prepararDatosDañados);
+
+        document.getElementById("probarVulnerable").addEventListener("click", () => {
+            localStorage.setItem(claveDemo, "{datos dañados");
+            try {
+                // Intencionalmente vulnerable: la función de carga no maneja la excepción.
+                // Este try/catch exterior solo evita que la demo completa se detenga.
+                const registros = JSON.parse(localStorage.getItem(claveDemo) || "[]");
+                mostrar(resultadoVulnerable, `Registros cargados: ${registros.length}`, "ok");
+            } catch (error) {
+                mostrar(resultadoVulnerable, `Fallo reproducido: ${error.name}. Sin una recuperación, el código que carga la lista se detendría.`, "error");
+            }
+        });
+
+        function cargarDeFormaSegura() {
+            try {
+                const registros = JSON.parse(localStorage.getItem(claveDemo) || "[]");
+                return Array.isArray(registros) ? { registros, recuperado: false } : { registros: [], recuperado: true };
+            } catch {
+                return { registros: [], recuperado: true };
+            }
+        }
+
+        document.getElementById("probarSeguro").addEventListener("click", () => {
+            localStorage.setItem(claveDemo, "{datos dañados");
+            const resultado = cargarDeFormaSegura();
+            const mensaje = resultado.recuperado
+                ? "Error controlado: se devolvió una lista vacía y la página puede seguir funcionando."
+                : `Carga correcta: ${resultado.registros.length} registros.`;
+            mostrar(resultadoSeguro, mensaje, "ok");
+        });
+
+        document.getElementById("guardarEjemplo").addEventListener("click", () => {
+            localStorage.setItem(claveDemo, JSON.stringify([{ nombres: "Ana", apellidos: "Demo" }]));
+            mostrar(resultadoSeguro, "Se guardó un registro de ejemplo válido. Pulsa “Probar recuperación” para cargarlo.", "ok");
         });
     </script>
 </body>
