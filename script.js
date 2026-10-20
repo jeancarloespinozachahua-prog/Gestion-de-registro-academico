@@ -12,6 +12,7 @@ function cargarEstudiantes() {
 
         return guardados.filter(estudiante =>
             estudiante && typeof estudiante === "object" &&
+            typeof estudiante.codigo === "string" && /^[A-Z0-9-]{2,12}$/.test(estudiante.codigo) &&
             typeof estudiante.nombres === "string" &&
             typeof estudiante.apellidos === "string" &&
             typeof estudiante.dni === "string" && /^\d{8}$/.test(estudiante.dni) &&
@@ -36,6 +37,7 @@ function mostrarEstudiantes() {
         const fila = document.createElement("tr");
 
         [
+            estudiante.codigo,
             estudiante.nombres,
             estudiante.apellidos,
             estudiante.dni,
@@ -74,6 +76,7 @@ formulario.addEventListener("submit", function(evento) {
     evento.preventDefault();
 
     const estudiante = {
+        codigo: document.getElementById("codigoEstudiante").value.trim().toUpperCase(),
         nombres: document.getElementById("nombres").value.trim(),
         apellidos: document.getElementById("apellidos").value.trim(),
         dni: document.getElementById("dni").value.trim(),
@@ -83,6 +86,11 @@ formulario.addEventListener("submit", function(evento) {
 
     if (!/^\d{8}$/.test(estudiante.dni)) {
         mensaje.textContent = "El DNI debe tener 8 números.";
+        return;
+    }
+
+    if (estudiantes.some(e => e.codigo === estudiante.codigo)) {
+        mensaje.textContent = "Este código de estudiante ya está registrado.";
         return;
     }
 

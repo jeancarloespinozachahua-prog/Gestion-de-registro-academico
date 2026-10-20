@@ -1,0 +1,11 @@
+{
+  "name": "gestion-academica-equipo",
+  "version": "1.0.0",
+  "description": "Prototipo web de gestión académica (estudiantes y cursos)",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "check:secretos": "node scripts/verificar-secretos.js"
+  },
+  "license": "ISC"
+}

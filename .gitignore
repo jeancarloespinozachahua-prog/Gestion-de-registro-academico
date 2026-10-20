@@ -1,2 +1,24 @@
+# Dependencias
 node_modules/
+
+# Credenciales y llaves (NUNCA versionar)
 .env
+.env.*
+*.pem
+*.key
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# Temporales y logs
+*.log
+*.tmp
+*.temp
+*.swp
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

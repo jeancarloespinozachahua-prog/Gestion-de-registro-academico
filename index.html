@@ -45,6 +45,7 @@
             <section class="tarjeta">
                 <div class="titulo-tarjeta"><div><h2>Registrar estudiante</h2><p>Completa los datos del alumno.</p></div></div>
                 <form id="formularioEstudiante" class="form-grid">
+                    <div class="campo"><label for="codigoEstudiante">Código de estudiante</label><input type="text" id="codigoEstudiante" maxlength="12" placeholder="Ej. EST001" required></div>
                     <div class="campo"><label for="nombres">Nombres</label><input type="text" id="nombres" required></div>
                     <div class="campo"><label for="apellidos">Apellidos</label><input type="text" id="apellidos" required></div>
                     <div class="campo"><label for="dni">DNI</label><input type="text" id="dni" maxlength="8" inputmode="numeric" pattern="[0-9]{8}" required></div>
@@ -55,7 +56,7 @@
             </section>
             <section class="tarjeta">
                 <div class="titulo-tarjeta"><div><h2>Listado de estudiantes</h2><p>Alumnos registrados en este navegador.</p></div><span class="contador">Total: <strong id="total">0</strong></span></div>
-                <div class="tabla"><table><thead><tr><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Edad</th><th>Carrera</th><th>Acción</th></tr></thead><tbody id="listaEstudiantes"></tbody></table></div>
+                <div class="tabla"><table><thead><tr><th>Código</th><th>Nombres</th><th>Apellidos</th><th>DNI</th><th>Edad</th><th>Carrera</th><th>Acción</th></tr></thead><tbody id="listaEstudiantes"></tbody></table></div>
             </section>
         </section>
 
@@ -83,6 +84,7 @@
         </section>
     </main>
 
+    <script src="validaciones.js"></script>
     <script src="validar%20formulario.js"></script>
     <script src="script.js"></script>
     <script src="cursos.js"></script>

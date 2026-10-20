@@ -1,0 +1,18 @@
+name: CI - Verificación de Pull Request
+
+on:
+  pull_request:
+    branches: [develop, main]
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Pruebas de validaciones
+        run: npm test
+      - name: Verificar que no hay secretos versionados
+        run: npm run check:secretos

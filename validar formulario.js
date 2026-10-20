@@ -1,25 +1,27 @@
 // Validaciones adicionales para los formularios de estudiantes y cursos.
 // Las restricciones requeridas, pattern, min y max del HTML siguen activas.
 (() => {
-    const soloLetras = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]+$/;
+    const V = window.Validaciones;
     const reglas = {
-        nombres: valor => soloLetras.test(valor.trim()) && valor.trim().length >= 2
+        codigoEstudiante: valor => V.codigoValido(valor)
+            ? "" : "El código debe tener de 2 a 12 letras, números o guiones.",
+        nombres: valor => V.nombreValido(valor)
             ? "" : "Escribe al menos 2 letras; no uses números ni símbolos.",
-        apellidos: valor => soloLetras.test(valor.trim()) && valor.trim().length >= 2
+        apellidos: valor => V.nombreValido(valor)
             ? "" : "Escribe al menos 2 letras; no uses números ni símbolos.",
-        correo: valor => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(valor.trim())
+        correo: valor => V.correoValido(valor)
             ? "" : "Escribe un correo válido, por ejemplo nombre@ejemplo.com.",
-        dni: valor => /^\d{8}$/.test(valor.trim())
+        dni: valor => V.dniValido(valor)
             ? "" : "El DNI debe contener exactamente 8 números.",
-        edad: valor => Number.isInteger(Number(valor)) && Number(valor) >= 1 && Number(valor) <= 120
+        edad: valor => V.enteroEnRango(valor, 1, 120)
             ? "" : "La edad debe ser un número entero entre 1 y 120.",
-        codigoCurso: valor => /^[A-Za-z0-9-]{2,12}$/.test(valor.trim())
+        codigoCurso: valor => V.codigoValido(valor)
             ? "" : "El código debe tener de 2 a 12 letras, números o guiones.",
         nombreCurso: valor => valor.trim().length >= 2
             ? "" : "Escribe el nombre del curso (mínimo 2 caracteres).",
-        creditosCurso: valor => Number.isInteger(Number(valor)) && Number(valor) >= 1 && Number(valor) <= 20
+        creditosCurso: valor => V.enteroEnRango(valor, 1, 20)
             ? "" : "Los créditos deben ser un número entero entre 1 y 20.",
-        docenteCurso: valor => soloLetras.test(valor.trim()) && valor.trim().length >= 2
+        docenteCurso: valor => V.nombreValido(valor)
             ? "" : "Escribe el nombre del docente usando letras y espacios."
     };
 

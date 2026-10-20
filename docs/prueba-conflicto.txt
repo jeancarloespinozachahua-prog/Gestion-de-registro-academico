@@ -1,0 +1,4 @@
+Archivo de prueba para la simulación de conflicto (Actividad 5)
+Este archivo no forma parte del sistema.
+Titulo: Reporte de matricula
+Autor: equipo
